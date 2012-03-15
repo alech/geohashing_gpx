@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'json'
 require 'open-uri'
+require 'haml'
 
 # MAX number of additional geohashes in each direction
 MAX_COUNT = 3
@@ -104,4 +105,8 @@ get %r|\A/stops/(-?\d{1,2})/(-?\d{1,2})/(\d{4}-\d{2}-\d{2})\z| do |lat, lon, dat
 	look_x = ("%2.6f" % [ hp_lon ]).sub('.', '')
 	look_y = ("%2.6f" % [ hp_lat ]).sub('.', '')
 	redirect "http://m.bahn.de/bin/mobil/query2.exe/dox?performLocating=2&tpl=stopsnear&look_maxdist=5000&look_x=#{look_x}&look_y=#{look_y}"
+end
+
+get '/' do
+	haml :index
 end
