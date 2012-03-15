@@ -1,0 +1,51 @@
+%html
+  %head
+    %title Geohashing GPX tools
+  %body
+    %h1 Geohashing GPX tools
+    %p
+      This site offers some tools for&#32;
+      %a{:href => "http://www.geohashing.org"}>  geohashing
+      , in particular in relation to generating GPX files.
+    %h2 Single hashpoint GPX file
+    %p
+      If you just want a single location for a given graticule for today
+      (plus the globalhash, just in case it is in your vicinity),
+      use a URL of the form http://geohashing-gpx.heroku.com/single/latitude/longitude.
+      If your graticule is east of 30W and the next day's DJIA opening is
+      available (after 13:30 UTC), you'll also get tomorrow's hashpoint in
+      the resulting GPX file.
+    %p
+      %h3 Example
+      %a{:href => "http://geohashing-gpx.heroku.com/single/49/8"} http://geohashing-gpx.heroku.com/single/49/8
+      returns a GPX file with today's (and possibly tomorrow's) hashpoint for the Mannheim, Germany (49,8) graticule.
+    %h2 Single hashpoint GPX file for a given date
+    %p
+      Similarly, if you want a single location for a given date other than
+      today, use a URL of the form http://geohashing-gpx.heroku.com/single/latitude/longitude/YYYY-MM-DD.
+    %p
+      %h3 Example
+      %a{:href => "http://geohashing-gpx.heroku.com/single/49/8/2012-02-29"} http://geohashing-gpx.heroku.com/single/49/8/2012-02-29
+      returns a GPX file with the Mannheim, Germany graticule coordinates for leap day 2012.
+    %h2 Multiple hashpoints GPX file
+    %p
+      If you want the hashpoint for more than one graticule (similar to what the
+      %a{:href => "http://tjum.anthill.de/geohash.html"} Small Hash Inquiry Tool
+      provides), you can use a URL of the form http://geohashing-gpx.heroku.com/multi/count/latitude/longitude, where count is the number of steps you want to go into each direction. Similarly as before, if you are east of 30W and a new DIJA opening is available, you'll also get tomorrows hashpoints.
+    %p
+      %h3 Example
+      %a{:href => "http://geohashing-gpx.heroku.com/multi/1/49/8"} http://geohashing-gpx.heroku.com/multi/1/49/8
+      will return the hashpoint for 49,8 and the eight surrounding ones.
+    %h2 Multiple hashpoints GPX file for a given date
+    %p
+      Similarly as above, you can also add a /YYYY-MM-DD style date to the URL to get only the hashpoints for a certain date.
+    %h2 Stops in the area
+    %p
+      While it has nothing to do with GPX, it might still be useful for those people (in Germany or parts of Europe) who want to achieve the public transportation achievement. With a URL of form http://geohashing-gpx.heroku.com/stops/latitude/longitude/YYYY-MM-DD, you'll get redirected to a list of (bus, tram, train) stops in the vicinity (5kms) on Deutsche Bahn's website.
+    %p
+      %h3 Example
+      %a{:href => "http://geohashing-gpx.heroku.com/stops/49/8/2012-02-29"} http://geohashing-gpx.heroku.com/stops/49/8/2012-02-29
+      will show you a list of stops close to the 49,8 hashpoint on leap day 2012.
+    %h2 Show me the source
+    %p
+      git clone git://git.alech.de/geohashing_gpx.git
