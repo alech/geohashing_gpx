@@ -72,6 +72,7 @@ get %r|\A/single/(-?\d{1,2})/(-?\d{1,2})\z| do |lat, lon|
 end
 
 get %r|\A/single/(-?\d{1,2})/(-?\d{1,2})/(\d{4}-\d{2}-\d{2})\z| do |lat, lon, date|
+	content_type :gpx
 	gpx(lat.to_i, lon.to_i, 0, date)
 end
 
