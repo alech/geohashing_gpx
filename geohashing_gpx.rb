@@ -38,8 +38,8 @@ def gpx(lat, lon, count, date, today = false)
 	result = gpx_header
 	dates = [ date ]
 	if today && (lon > -30) &&
-	   (Time.now.utc.hour == 13 && Time.now.min >= 30) ||
-	   (Time.now.utc.hour > 13) then
+	   ((Time.now.utc.hour == 13 && Time.now.min >= 30) ||
+	   (Time.now.utc.hour > 13)) then
 		# if 30W rule applies and it is after 13:30 UTC,
 		# also get next day's geohash
 		dates << (Time.now.utc + 60*60*24).strftime("%Y-%m-%d")
