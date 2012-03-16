@@ -43,6 +43,20 @@ def gpx(lat, lon, count, date, today = false)
 		# if 30W rule applies and it is after 13:30 UTC,
 		# also get next day's geohash
 		dates << (Time.now.utc + 60*60*24).strftime("%Y-%m-%d")
+		if (Time.now.utc.wday == 5) then
+			# yay, it's Friday, include Sunday and Monday, too.
+			dates << (Time.now.utc + 2*60*60*24).strftime("%Y-%m-%d")
+			dates << (Time.now.utc + 3*60*60*24).strftime("%Y-%m-%d")
+		end
+		# TODO business holidays
+	end
+	if today && (lon <= -30) &&
+	   ((Time.now.utc.hour == 13 && Time.now.min >= 30) ||
+	   (Time.now.utc.hor > 13)) &&
+	   (Time.now.utc.wday == 5) then
+		# Friday west of 30W, include Saturday and Sunday
+		dates << (Time.now.utc + 60*60*24).strftime("%Y-%m-%d")
+		dates << (Time.now.utc + 2*60*60*24).strftime("%Y-%m-%d")
 	end
 	dates.each do |date|
 		(lat-count..lat+count).each do |curr_lat|
