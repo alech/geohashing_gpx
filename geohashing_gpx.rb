@@ -50,6 +50,19 @@ def gpx(lat, lon, count, date, today = false)
 		end
 		# TODO business holidays
 	end
+	if today && (Time.now.utc.wday == 6) then
+		# on Saturdays, always include Sunday, too (regardless
+		# of location)
+		dates << (Time.now.utc + 60*60*24).strftime("%Y-%m-%d")
+	end
+	if today && (Time.now.utc.wday == 6) && (lon > -30) then
+		# on Saturdays east of W30, include Monday, too
+		dates << (Time.now.utc + 2*60*60*24).strftime("%Y-%m-%d")
+	end
+	if today && (Time.now.utc.wday == 0) && (lon > -30) then
+		# on Sundays east of W30, include Monday, too
+		dates << (Time.now.utc + 2*60*60*24).strftime("%Y-%m-%d")
+	end
 	if today && (lon <= -30) &&
 	   ((Time.now.utc.hour == 13 && Time.now.min >= 30) ||
 	   (Time.now.utc.hor > 13)) &&
@@ -58,7 +71,14 @@ def gpx(lat, lon, count, date, today = false)
 		dates << (Time.now.utc + 60*60*24).strftime("%Y-%m-%d")
 		dates << (Time.now.utc + 2*60*60*24).strftime("%Y-%m-%d")
 	end
-	dates.each do |date|
+	if today && (lon <= -30) &&
+	   ((Time.now.utc.hour == 13 && Time.now.min >= 30) ||
+	   (Time.now.utc.hor > 13)) &&
+	   (Time.now.utc.wday == 6) then
+		# Saturday west of 30W, include Sunday
+		dates << (Time.now.utc + 60*60*24).strftime("%Y-%m-%d")
+	end
+	dates.uniq.each do |date|
 		(lat-count..lat+count).each do |curr_lat|
 			(lon-count..lon+count).each do |curr_lon|
 				j = relet_json(curr_lat, curr_lon, date)
