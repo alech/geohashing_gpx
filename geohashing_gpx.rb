@@ -61,7 +61,7 @@ def gpx(lat, lon, count, date, today = false)
 	end
 	if today && (Time.now.utc.wday == 0) && (lon > -30) then
 		# on Sundays east of W30, include Monday, too
-		dates << (Time.now.utc + 2*60*60*24).strftime("%Y-%m-%d")
+		dates << (Time.now.utc + 60*60*24).strftime("%Y-%m-%d")
 	end
 	if today && (lon <= -30) &&
 	   ((Time.now.utc.hour == 13 && Time.now.min >= 30) ||
